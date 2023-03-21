@@ -36,7 +36,7 @@ public class Veiculo {
 	}
 
 	public String toString() {
-		return "Veiculo de placa " + placa + ", da marca " + marca + ", e modelo " + modelo + ".";
+		return "Veiculo de placa " + placa + ", da marca " + marca + ", e modelo " + modelo + ". \n";
 	}
 
 }

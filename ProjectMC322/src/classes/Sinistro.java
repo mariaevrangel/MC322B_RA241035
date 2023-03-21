@@ -6,7 +6,7 @@ public class Sinistro {
 	private String endereco;
 	private static int contador = 0;
 	
-	public Sinistro(int id, String data, String endereco) {
+	public Sinistro(String data, String endereco) {
 		this.id = idGenerator();
 		this.data = data;
 		this.endereco = endereco;
@@ -45,7 +45,7 @@ public class Sinistro {
 	}
 
 	public String toString() {
-		return "Identificacao do sinistro" + id + ", datado em " + data + ", no endereço:" + endereco + ".";
+		return "Identificacao do sinistro " + id + ", datado em " + data + ", no endereço: " + endereco + ". \n";
 	}
 
 }

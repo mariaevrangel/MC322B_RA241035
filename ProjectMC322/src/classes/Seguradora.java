@@ -47,7 +47,7 @@ public class Seguradora {
 
 	public String toString() {
 		return "Seguradora " + nome + ", com e-mail " + mail + ", telefone " + phone + 
-				", no endereço: " + endereco + ".";
+				", no endereço: " + endereco + ". \n";
 	}
 
 }
