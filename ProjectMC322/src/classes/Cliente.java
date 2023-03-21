@@ -55,9 +55,36 @@ public class Cliente {
 		this.address = address;
 	}
 
-	
-	//funcao toString, pode usar a pronta? aparece aquele link
-	
-	//fazer funcao validarCPF
-	
+	public boolean validarCPF(String cpf) {
+	    // Only numbers
+	    cpf = cpf.replaceAll("[^\\d]", "");
+
+	    // Exigencia 11 dígitos
+	    int tamanho = cpf.length();
+	    if (tamanho != 11) {
+	        return false;
+	    }
+
+	    // Verificar se todos os numeros são iguais
+	    boolean resposta = false;
+	    char primeiro = cpf.charAt(0);
+	    for (int i = 1; i < tamanho; i++) {
+	        if (cpf.charAt(i) != primeiro) {
+	            resposta = true;
+	            break;
+	        }
+	    }
+	    return resposta;
+
+	    // Calcular os dígitos verificadores
+
+	    // Verificar se os dígitos verificadores calculados são iguais aos dígitos verificadores do CPF
+	    
+	}
+
+	public String toString() {
+		return "Cliente " + nome + ", CPF " + cpf + ", nascido em " + birth + ", com " + age +
+				" anos, e endereço:" + address + ".";
+	}
+
 }
