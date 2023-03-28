@@ -1,18 +1,20 @@
 package classes;
+import java.util.Date;
 
 public class Cliente {
 	private String nome;
-	private String cpf;
-	private String birth;
-	private int age;
-	private String address;
+	private String endereco;
+	private Date dataLicenca;
+	private String educacao;
+	private String genero;
+	private String classeEconomica;
+	private List<Veiculo> listaVeiculos;
 	
-	public Cliente(String nome, String cpf, String birth, int age, String address) {
+	// adicionar de dataLicenca até lista no construtor
+	
+	public Cliente(String nome, String endereco) {
 		this.nome = nome;
-		this.cpf = cpf;
-		this.birth = birth;
-		this.age = age;
-		this.address = address;
+		this.endereco = endereco;
 	}
 
 	public String getNome() {
@@ -23,99 +25,58 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setEndereco(String address) {
+		this.endereco = address;
 	}
 
-	public String getBirth() {
-		return birth;
+	public Date getDataLicenca() {
+		return dataLicenca;
 	}
 
-	public void setBirth(String birth) {
-		this.birth = birth;
+	public void setDataLicenca(Date dataLicenca) {
+		this.dataLicenca = dataLicenca;
 	}
 
-	public int getAge() {
-		return age;
+	public String getEducacao() {
+		return educacao;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
-	public boolean validarCPF(String cpf) {
-	    // Only numbers
-	    cpf = cpf.replaceAll("[^\\d]", "");
-
-	    // 11 digits
-	    int tamanho = cpf.length();
-
-	    // Verificar se todos os numeros são iguais
-	    boolean resposta = false;
-	    char primeiro = cpf.charAt(0);
-	    for (int i = 1; i < tamanho; i++) {
-	        if (cpf.charAt(i) != primeiro) {
-	            resposta = true;
-	            break;
-	        }
-	    }
-	    
-	    if (tamanho != 11 || resposta == false) {
-	    	return false;
-	    }
-	    
-	    // Verify digits
-	    int[] mult1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
-	    int[] mult2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
-	    String cpf9digitos = cpf.substring(0, 9);
-	    //System.out.println(cpf9digitos);
-	    int soma = 0;
-	    for (int i = 0; i < (tamanho-2); i++) {
-	    // 48 eh a posicao de '0' na tabela ASCII
-	        int digito = (cpf9digitos.charAt(i) - 48);
-	        soma += digito * mult1[i];
-	    }
-	    int resto = 11 - (soma % 11);
-	    char digit1 = '0';
-	    if ((soma % 11) != 10 || (soma % 11) != 11) {
-	    	digit1 = (char)(resto + 48);
-	    }
-	    cpf9digitos += digit1;
-	    soma = 0;
-	    for (int i = 0; i < (tamanho - 1); i++) {
-	    	int digito = (cpf9digitos.charAt(i) - 48);
-	        soma += digito * mult2[i];
-	    }
-	    resto = 11 - (soma % 11);
-	    char digit2 = '0';
-	    if ((soma % 11) != 10 || (soma % 11) != 11) {
-	    	digit2 = (char)(resto + 48);
-	    }
-	    cpf9digitos += digit2;
-	    
-	    // True CPF
-	    if (cpf.equals(cpf9digitos)) {
-	    	return true;
-	    } else {
-	    	return false;
-	    }
+	public String getClasseEconomica() {
+		return classeEconomica;
 	}
 
+	public void setClasseEconomica(String classeEconomica) {
+		this.classeEconomica = classeEconomica;
+	}
+
+	public List<Veiculo> getListaVeiculos() {
+		return listaVeiculos;
+	}
+
+	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
+	}
+
+	@Override
 	public String toString() {
-		return "Cliente " + nome + ", CPF " + cpf + ", nascido em " + birth + ", com " + age +
-				" anos, e endereço: " + address + ". \n";
+		return "Cliente [nome =" + nome + ", endereco =" + endereco + ", educacao =" + educacao +
+				", genero =" + genero + ", classeEconomica =" + classeEconomica + "]";
 	}
 
 }

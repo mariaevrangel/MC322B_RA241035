@@ -5,6 +5,17 @@ public class Seguradora {
 	private String phone;
 	private String mail;
 	private String endereco;
+	private List <Sinistro> listaSinistros;
+	private List <Cliente> listaClientes;
+	
+	// adicionar listas no construtor
+	// fazer gets e sets das listas
+	// boolean cadastrarCliente(Cliente cliente):
+	// boolean removerCliente (String cliente):
+	// List <Cliente> listarClientes (String tipoCliente):
+	// boolean gerarSinistro(): 
+	// boolean visualizarSinistro (String cliente):
+	// List <Sinistro> listarSinistros(): 
 	
 	public Seguradora(String nome, String phone, String mail, String endereco) {
 		this.nome = nome;
@@ -44,7 +55,7 @@ public class Seguradora {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
+	
 	public String toString() {
 		return "Seguradora " + nome + ", com e-mail " + mail + ", telefone " + phone + 
 				", no endereço: " + endereco + ". \n";
