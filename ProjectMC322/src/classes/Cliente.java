@@ -11,6 +11,7 @@ public class Cliente {
 	private String classeEconomica;
 	private List<Veiculo> listaVeiculos;
 	
+	// Remover a listaVeiculos daqui, mas aí como ela será recebido em ClientePF e ClientePJ?
 	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, 
 			String genero, String classeEconomica, List<Veiculo> listaVeiculos) {
 		this.nome = nome;
@@ -19,6 +20,7 @@ public class Cliente {
 		this.educacao = educacao;
 		this.genero = genero;
 		this.classeEconomica = classeEconomica;
+		// Como declarar uma nova lista vazia?
 		this.listaVeiculos = new List<Veiculo>();
 	}
 
