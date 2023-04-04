@@ -23,9 +23,7 @@ public class Sinistro {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	// Sem setId por ser do tipo final
 
 	public String getData() {
 		return data;
@@ -41,14 +39,6 @@ public class Sinistro {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-	
-	public int idGenerator() {
-		//id++
-		int number = 1;
-		number += contador;
-		contador++;
-		return number;
 	}
 
 	public Seguradora getSeguradora() {
@@ -75,9 +65,17 @@ public class Sinistro {
 		this.cliente = cliente;
 	}
 
+	public int idGenerator() {
+		// Id++
+		int number = 1;
+		number += contador;
+		contador++;
+		return number;
+	}
+	
 	public String toString() {
-		return "Sinistro [id=" + id + ", data=" + data + ", endereco=" + endereco + ", seguradora=" + seguradora
-				+ ", veiculo=" + veiculo + ", cliente=" + cliente + "]";
+		return "Sinistro " + id + ", gerado na data " + data + ", com endereco " + endereco + ", da seguradora " + 
+				seguradora + ", referente ao veiculo " + veiculo + ", do cliente " + cliente + ". \n";
 	}
 
 }

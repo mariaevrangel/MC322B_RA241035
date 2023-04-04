@@ -1,5 +1,6 @@
 package classes;
 import java.util.Date;
+import java.util.List;
 
 public class Cliente {
 	private String nome;
@@ -10,11 +11,15 @@ public class Cliente {
 	private String classeEconomica;
 	private List<Veiculo> listaVeiculos;
 	
-	// adicionar de dataLicenca até lista no construtor
-	
-	public Cliente(String nome, String endereco) {
+	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, 
+			String genero, String classeEconomica, List<Veiculo> listaVeiculos) {
 		this.nome = nome;
 		this.endereco = endereco;
+		this.dataLicenca = dataLicenca;
+		this.educacao = educacao;
+		this.genero = genero;
+		this.classeEconomica = classeEconomica;
+		this.listaVeiculos = new List<Veiculo>();
 	}
 
 	public String getNome() {
@@ -73,10 +78,9 @@ public class Cliente {
 		this.listaVeiculos = listaVeiculos;
 	}
 
-	@Override
 	public String toString() {
-		return "Cliente [nome =" + nome + ", endereco =" + endereco + ", educacao =" + educacao +
-				", genero =" + genero + ", classeEconomica =" + classeEconomica + "]";
+		return "Cliente " + nome + ", residente no endereco =" + endereco + ", com nível de educacao " + educacao +
+				", do genero " + genero + ", incluso na classe econômica " + classeEconomica + ". \n";
 	}
 
 }

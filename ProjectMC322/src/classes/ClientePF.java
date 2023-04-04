@@ -1,23 +1,25 @@
 package classes;
 import java.util.Date;
+import java.util.List;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
 	private Date dataNascimento;
 	
 	public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, 
-			String genero, String classeEconomica, List <Veiculo> listaVeiculos, String cpf, 
+			String genero, String classeEconomica, List<Veiculo> listaVeiculos, String cpf, 
 			Date dataNascimento) {
 		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica, listaVeiculos);
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 	}
 	
-	//CPF nao tem setCPF, pois é do tipo final
 	public String getCpf() {
 		return cpf;
 	}
 
+	// Sem setCPF por ser do tipo final
+	
 	public Date getdataNascimento() {
 		return dataNascimento;
 	}
@@ -27,13 +29,13 @@ public class ClientePF extends Cliente {
 	}
 	
 	public boolean validarCPF(String cpf) {
-	    // Only numbers
+	    // Só número
 	    cpf = cpf.replaceAll("[^\\d]", "");
 
-	    // 11 digits
+	    // 11 dígitos
 	    int tamanho = cpf.length();
 
-	    // Verificar se todos os numeros são iguais
+	    // Verificar se todos os números são iguais
 	    boolean resposta = false;
 	    char primeiro = cpf.charAt(0);
 	    for (int i = 1; i < tamanho; i++) {
@@ -47,14 +49,13 @@ public class ClientePF extends Cliente {
 	    	return false;
 	    }
 	    
-	    // Verify digits
+	    // Verificar dígitos
 	    int[] mult1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
 	    int[] mult2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 	    String cpf9digitos = cpf.substring(0, 9);
-	    //System.out.println(cpf9digitos);
 	    int soma = 0;
 	    for (int i = 0; i < (tamanho-2); i++) {
-	    // 48 eh a posicao de '0' na tabela ASCII
+	    // 48 = posição de '0' na tabela ASCII
 	        int digito = (cpf9digitos.charAt(i) - 48);
 	        soma += digito * mult1[i];
 	    }
@@ -76,7 +77,7 @@ public class ClientePF extends Cliente {
 	    }
 	    cpf9digitos += digit2;
 	    
-	    // True CPF
+	    // CPF verdadeiro
 	    if (cpf.equals(cpf9digitos)) {
 	    	return true;
 	    } else {
@@ -84,11 +85,8 @@ public class ClientePF extends Cliente {
 	    }
 	}
 
-	
 	public String toString() {
-		return "ClientePF [cpf=" + cpf + ", dataNascimento=" + dataNascimento + ", toString()=" + super.toString() + "]";
+		return "ClientePF com CPF " + cpf + ", nascido em " + dataNascimento + ", refere-se a:" + super.toString() + ". \n";
 	}
-
-	
 	
 }

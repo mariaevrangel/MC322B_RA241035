@@ -1,14 +1,15 @@
 package classes;
 
+import java.util.List;
+
 public class Seguradora {
 	private String nome;
 	private String phone;
 	private String mail;
 	private String endereco;
-	private List <Sinistro> listaSinistros;
-	private List <Cliente> listaClientes;
+	private List<Sinistro> listaSinistros;
+	private List<Cliente> listaClientes;
 	
-	// adicionar listas no construtor
 	// fazer gets e sets das listas
 	// boolean cadastrarCliente(Cliente cliente):
 	// boolean removerCliente (String cliente):
@@ -22,6 +23,8 @@ public class Seguradora {
 		this.phone = phone;
 		this.mail = mail;
 		this.endereco = endereco;
+		this.listaSinistros = new List<Sinistro>();
+		this.listaClientes = new List<Cliente>();
 	}
 
 	public String getNome() {
