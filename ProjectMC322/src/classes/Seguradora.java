@@ -10,7 +10,6 @@ public class Seguradora {
 	private List<Sinistro> listaSinistros;
 	private List<Cliente> listaClientes;
 	
-	// fazer gets e sets das listas
 	// boolean cadastrarCliente(Cliente cliente):
 	// boolean removerCliente (String cliente):
 	// List <Cliente> listarClientes (String tipoCliente):
@@ -59,6 +58,22 @@ public class Seguradora {
 		this.endereco = endereco;
 	}
 	
+	public List<Sinistro> getListaSinistros() {
+		return listaSinistros;
+	}
+
+	public void setListaSinistros(List<Sinistro> listaSinistros) {
+		this.listaSinistros = listaSinistros;
+	}
+
+	public List<Cliente> getListaClientes() {
+		return listaClientes;
+	}
+
+	public void setListaClientes(List<Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
 	public String toString() {
 		return "Seguradora " + nome + ", com e-mail " + mail + ", telefone " + phone + 
 				", no endereço: " + endereco + ". \n";
