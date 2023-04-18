@@ -25,6 +25,10 @@ public class Veiculo {
 		return modelo;
 	}
 	
+	public int getAnoFabricacao() {
+		return anoFabricacao;
+	}
+
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
@@ -37,10 +41,6 @@ public class Veiculo {
 		this.modelo = modelo;
 	}
 	
-	public int getAnoFabricacao() {
-		return anoFabricacao;
-	}
-
 	public void setAnoFabricacao(int anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}

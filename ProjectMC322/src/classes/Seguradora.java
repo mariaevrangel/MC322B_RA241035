@@ -1,29 +1,25 @@
 package classes;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Seguradora {
 	private String nome;
 	private String phone;
 	private String mail;
 	private String endereco;
-	private List<Sinistro> listaSinistros;
-	private List<Cliente> listaClientes;
+	private ArrayList<Sinistro> listaSinistros;
+	private ArrayList<Cliente> listaClientes;
 	
-	// boolean cadastrarCliente(Cliente cliente):
-	// boolean removerCliente (String cliente):
-	// List <Cliente> listarClientes (String tipoCliente):
 	// boolean gerarSinistro(): 
-	// boolean visualizarSinistro (String cliente):
-	// List <Sinistro> listarSinistros(): 
+	// boolean visualizarSinistro (String cliente): 
 	
 	public Seguradora(String nome, String phone, String mail, String endereco) {
 		this.nome = nome;
 		this.phone = phone;
 		this.mail = mail;
 		this.endereco = endereco;
-		this.listaSinistros = new List<Sinistro>();
-		this.listaClientes = new List<Cliente>();
+		this.listaSinistros = new ArrayList<Sinistro>();
+		this.listaClientes = new ArrayList<Cliente>();
 	}
 
 	public String getNome() {
@@ -58,22 +54,61 @@ public class Seguradora {
 		this.endereco = endereco;
 	}
 	
-	public List<Sinistro> getListaSinistros() {
+	public ArrayList<Sinistro> getListaSinistros() {
 		return listaSinistros;
 	}
 
-	public void setListaSinistros(List<Sinistro> listaSinistros) {
+	public void setListaSinistros(ArrayList<Sinistro> listaSinistros) {
 		this.listaSinistros = listaSinistros;
 	}
 
-	public List<Cliente> getListaClientes() {
+	public ArrayList<Cliente> getListaClientes() {
 		return listaClientes;
 	}
 
-	public void setListaClientes(List<Cliente> listaClientes) {
+	public void setListaClientes(ArrayList<Cliente> listaClientes) {
 		this.listaClientes = listaClientes;
 	}
-
+	
+	public boolean cadastrarCliente(Cliente cliente) {
+		return listaClientes.add(cliente);
+	}
+	
+	public boolean removeCliente(Cliente cliente) {
+		return listaClientes.remove(cliente);
+	}
+	
+	public Cliente searchCliente(String nome) {
+		for(Cliente cliente : listaClientes) {
+			if(cliente.getNome().equals(nome)) {
+				return cliente;
+			}
+		}
+		return null;
+	}
+	
+	/*public void listarClientes(String tipoCliente) {
+		if(tipoCliente.equals("PF")) {
+			for(ClientePF cliente : listaClientes) {
+				System.out.println(cliente);	
+		} else if(tipoCliente.equals("PJ")) {
+			for(ClientePJ cliente : listaClientes) {
+				System.out.println(cliente);
+		}
+	}*/
+		
+	public void listarSinistros() {
+		for(Sinistro sinistro : listaSinistros) {
+				System.out.println(sinistro);	
+		}
+	}
+	
+	/*public void visualizarSinistro(String cliente) {
+		for(Cliente client : listaClientes) {
+				System.out.println(cliente);	
+		}
+	}*/
+	
 	public String toString() {
 		return "Seguradora " + nome + ", com e-mail " + mail + ", telefone " + phone + 
 				", no endereço: " + endereco + ". \n";

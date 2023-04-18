@@ -1,15 +1,13 @@
 package classes;
 import java.util.Date;
-import java.util.List;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
 	private Date dataNascimento;
 	
-	public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, 
-			String genero, String classeEconomica, List<Veiculo> listaVeiculos, String cpf, 
-			Date dataNascimento) {
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica, listaVeiculos);
+	public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica,
+			String cpf, Date dataNascimento) {
+		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica);
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 	}
@@ -29,13 +27,13 @@ public class ClientePF extends Cliente {
 	}
 	
 	public boolean validarCPF(String cpf) {
-	    // Só número
+	    // So numero
 	    cpf = cpf.replaceAll("[^\\d]", "");
 
-	    // 11 dígitos
+	    // 11 digitos
 	    int tamanho = cpf.length();
 
-	    // Verificar se todos os números são iguais
+	    // Verificar se todos os numeros sao iguais
 	    boolean resposta = false;
 	    char primeiro = cpf.charAt(0);
 	    for (int i = 1; i < tamanho; i++) {
@@ -49,13 +47,13 @@ public class ClientePF extends Cliente {
 	    	return false;
 	    }
 	    
-	    // Verificar dígitos
+	    // Verificar digitos
 	    int[] mult1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
 	    int[] mult2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 	    String cpf9digitos = cpf.substring(0, 9);
 	    int soma = 0;
 	    for (int i = 0; i < (tamanho-2); i++) {
-	    // 48 = posição de '0' na tabela ASCII
+	    // 48 = posicao de '0' na tabela ASCII
 	        int digito = (cpf9digitos.charAt(i) - 48);
 	        soma += digito * mult1[i];
 	    }

@@ -1,6 +1,6 @@
 package classes;
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Cliente {
 	private String nome;
@@ -9,19 +9,16 @@ public class Cliente {
 	private String educacao;
 	private String genero;
 	private String classeEconomica;
-	private List<Veiculo> listaVeiculos;
+	private ArrayList<Veiculo> listaVeiculos;
 	
-	// Remover a listaVeiculos daqui, mas aí como ela será recebido em ClientePF e ClientePJ?
-	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, 
-			String genero, String classeEconomica, List<Veiculo> listaVeiculos) {
+	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica) {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.dataLicenca = dataLicenca;
 		this.educacao = educacao;
 		this.genero = genero;
 		this.classeEconomica = classeEconomica;
-		// Como declarar uma nova lista vazia?
-		this.listaVeiculos = new List<Veiculo>();
+		this.listaVeiculos = new ArrayList<Veiculo>();
 	}
 
 	public String getNome() {
@@ -72,14 +69,31 @@ public class Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 
-	public List<Veiculo> getListaVeiculos() {
+	public ArrayList<Veiculo> getListaVeiculos() {
 		return listaVeiculos;
 	}
 
-	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
 		this.listaVeiculos = listaVeiculos;
 	}
 
+	public void addVeiculo(Veiculo veiculo) {
+		listaVeiculos.add(veiculo);
+	}
+	
+	public void removeVeiculo(Veiculo veiculo) {
+		listaVeiculos.remove(veiculo);
+	}
+	
+	public Veiculo searchVeiculo(String placa) {
+		for(Veiculo veiculo : listaVeiculos) {
+			if(veiculo.getPlaca().equals(placa)) {
+				return veiculo;
+			}
+		}
+		return null;
+	}
+	
 	public String toString() {
 		return "Cliente " + nome + ", residente no endereco =" + endereco + ", com nível de educacao " + educacao +
 				", do genero " + genero + ", incluso na classe econômica " + classeEconomica + ". \n";
