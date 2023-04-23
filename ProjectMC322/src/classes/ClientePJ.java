@@ -5,9 +5,8 @@ public class ClientePJ extends Cliente {
 	private final String cnpj;
 	private Date dataFundacao;
 		
-	public ClientePJ (String nome, String endereco, Date dataLicenca, String educacao, 
-			String genero, String classeEconomica, String cnpj, Date dataFundacao) {
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica);
+	public ClientePJ (String nome, String endereco, String tipoCliente, String cnpj, Date dataFundacao) {
+		super(nome, endereco, tipoCliente);
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 	}
@@ -86,8 +85,13 @@ public class ClientePJ extends Cliente {
 	    }
 	}
 	
+	@Override
+	public String getidentificacao() {
+		return getCnpj();
+	}
+	
 	public String toString() {
-		return "ClientePJ do CNPJ " + cnpj + ", fundado em " + dataFundacao + ", referente ao: " + super.toString() + ". \n";
+		return "Cliente do CNPJ " + cnpj + ", fundado em " + dataFundacao + ", referente ao: " + super.toString() + ". \n";
 	}
 	
 }

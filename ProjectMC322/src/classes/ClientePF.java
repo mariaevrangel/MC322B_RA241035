@@ -2,12 +2,20 @@ package classes;
 import java.util.Date;
 
 public class ClientePF extends Cliente {
+	private Date dataLicenca;
+	private String educacao;
+	private String genero;
+	private String classeEconomica;
 	private final String cpf;
 	private Date dataNascimento;
 	
-	public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica,
-			String cpf, Date dataNascimento) {
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica);
+	public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, String genero,
+			String classeEconomica, String tipoCliente, String cpf, Date dataNascimento) {
+		super(nome, endereco, tipoCliente);
+		this.dataLicenca = dataLicenca;
+		this.educacao = educacao;
+		this.genero = genero;
+		this.classeEconomica = classeEconomica;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 	}
@@ -26,6 +34,38 @@ public class ClientePF extends Cliente {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	public Date getDataLicenca() {
+		return dataLicenca;
+	}
+
+	public void setDataLicenca(Date dataLicenca) {
+		this.dataLicenca = dataLicenca;
+	}
+
+	public String getEducacao() {
+		return educacao;
+	}
+
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public String getClasseEconomica() {
+		return classeEconomica;
+	}
+
+	public void setClasseEconomica(String classeEconomica) {
+		this.classeEconomica = classeEconomica;
+	}
+
 	public boolean validarCPF(String cpf) {
 	    // So numero
 	    cpf = cpf.replaceAll("[^\\d]", "");
@@ -83,8 +123,15 @@ public class ClientePF extends Cliente {
 	    }
 	}
 
+	@Override
+	public String getidentificacao() {
+		return getCpf();
+	}
+	
 	public String toString() {
-		return "ClientePF com CPF " + cpf + ", nascido em " + dataNascimento + ", refere-se a:" + super.toString() + ". \n";
+		return "Cliente com CPF " + cpf + ", nascido em " + dataNascimento + ", refere-se a: " + super.toString() 
+		+ ", com nível de educacao " + educacao + ", do genero " + genero + ", da classe econômica " + classeEconomica +
+		". \n";
 	}
 	
 }

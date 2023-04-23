@@ -74,8 +74,8 @@ public class Sinistro {
 	}
 	
 	public String toString() {
-		return "Sinistro " + id + ", gerado na data " + data + ", com endereco " + endereco + ", da seguradora " + 
-				seguradora + ", referente ao veiculo " + veiculo + ", do cliente " + cliente + ". \n";
+		return "Sinistro " + id + ", gerado na data " + data + ", com endereco " + endereco + ", da " + 
+				seguradora + "Referente ao " + veiculo + "Do " + cliente;
 	}
 
 }

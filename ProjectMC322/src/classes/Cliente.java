@@ -1,24 +1,17 @@
 package classes;
-import java.util.Date;
 import java.util.ArrayList;
 
-public class Cliente {
+public abstract class Cliente {
 	private String nome;
 	private String endereco;
-	private Date dataLicenca;
-	private String educacao;
-	private String genero;
-	private String classeEconomica;
 	private ArrayList<Veiculo> listaVeiculos;
+	private String tipoCliente;
 	
-	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica) {
+	public Cliente(String nome, String endereco, String tipoCliente) {
 		this.nome = nome;
 		this.endereco = endereco;
-		this.dataLicenca = dataLicenca;
-		this.educacao = educacao;
-		this.genero = genero;
-		this.classeEconomica = classeEconomica;
 		this.listaVeiculos = new ArrayList<Veiculo>();
+		this.tipoCliente = tipoCliente;
 	}
 
 	public String getNome() {
@@ -35,38 +28,6 @@ public class Cliente {
 
 	public void setEndereco(String address) {
 		this.endereco = address;
-	}
-
-	public Date getDataLicenca() {
-		return dataLicenca;
-	}
-
-	public void setDataLicenca(Date dataLicenca) {
-		this.dataLicenca = dataLicenca;
-	}
-
-	public String getEducacao() {
-		return educacao;
-	}
-
-	public void setEducacao(String educacao) {
-		this.educacao = educacao;
-	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public String getClasseEconomica() {
-		return classeEconomica;
-	}
-
-	public void setClasseEconomica(String classeEconomica) {
-		this.classeEconomica = classeEconomica;
 	}
 
 	public ArrayList<Veiculo> getListaVeiculos() {
@@ -94,9 +55,18 @@ public class Cliente {
 		return null;
 	}
 	
+	public String gettipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(String tipo) {
+		tipoCliente = tipo;
+	}
+	
+	public abstract String getidentificacao();
+
 	public String toString() {
-		return "Cliente " + nome + ", residente no endereco =" + endereco + ", com nível de educacao " + educacao +
-				", do genero " + genero + ", incluso na classe econômica " + classeEconomica + ". \n";
+		return nome + ", residente no endereco " + endereco;
 	}
 
 }
