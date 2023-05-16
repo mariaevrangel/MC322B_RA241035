@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AppMain {
-	
 	public static void exibirMenuExterno() {
 		System.out.println("Menu Principal:\n");
 		MenuOperacoes menuOpcoes[] = MenuOperacoes.values();
