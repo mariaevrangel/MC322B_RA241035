@@ -5,33 +5,47 @@ public abstract class Cliente {
 	private String nome;
 	private String endereco;
 	private ArrayList<Veiculo> listaVeiculos;
-	private String tipoCliente;
+	private final String tipoCliente;
+	private Double valorSeguro;
 	
 	public Cliente(String nome, String endereco, String tipoCliente) {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.listaVeiculos = new ArrayList<Veiculo>();
 		this.tipoCliente = tipoCliente;
+		this.valorSeguro = 0.0;
+	}
+
+	public Double getValorSeguro() {
+		return valorSeguro;
+	}
+
+	public String getTipoCliente() {
+		return tipoCliente;
 	}
 
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	
 	public String getEndereco() {
 		return endereco;
+	}
+
+	public ArrayList<Veiculo> getListaVeiculos() {
+		return listaVeiculos;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public void setEndereco(String address) {
 		this.endereco = address;
 	}
-
-	public ArrayList<Veiculo> getListaVeiculos() {
-		return listaVeiculos;
+	
+	public void setValorSeguro(Double valorSeguro) {
+		this.valorSeguro = valorSeguro;
 	}
 
 	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
@@ -55,15 +69,24 @@ public abstract class Cliente {
 		return null;
 	}
 	
-	public String gettipoCliente() {
-		return tipoCliente;
-	}
-
-	public void setTipoCliente(String tipo) {
-		tipoCliente = tipo;
+	public abstract String getidentificacao();
+	
+	public double contarVeiculos(Cliente cliente) {
+		double contador = 0;
+		for(Veiculo veiculo : listaVeiculos) {
+			if(cliente.listaVeiculos.contains(veiculo)){
+				contador++;
+			}
+		}
+		return contador;
 	}
 	
-	public abstract String getidentificacao();
+	public double calculaScore(Cliente cliente) {
+		double score;
+		double quantidadeCarros = contarVeiculos(cliente);
+		score = CalcSeguro.VALOR_BASE.getOperacao() * quantidadeCarros;
+		return score;
+	}
 
 	public String toString() {
 		return nome + ", residente no endereco " + endereco;
