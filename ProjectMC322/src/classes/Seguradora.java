@@ -197,7 +197,7 @@ public class Seguradora {
 	public Double calcularReceita(Seguradora seguradora) {
 		double receita = 0.0;
 		double numero = 0.0;
-		for (Cliente cliente : listaClientes) {
+		for (Cliente cliente : seguradora.listaClientes) {
 			numero = calcularPrecoSeguroCliente(cliente);
 			receita += numero;
 		}

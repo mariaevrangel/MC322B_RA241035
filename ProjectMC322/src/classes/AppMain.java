@@ -125,40 +125,40 @@ public class AppMain {
 		switch (opSubmenu) {
 		case CADASTRAR_CLIENTE:
 			boolean verificaNome1 = Validacao.validarNome(clientePF1.getNome());
-			System.out.printf("O Nome%s do" + clientePF1.getNome() + " é válido.\n", verificaNome1 ? "" : " não");
+			System.out.printf("\nO Nome%s de " + clientePF1.getNome() + " é válido.\n", verificaNome1 ? "" : " não");
 			boolean verificaCPF1 = Validacao.validarCPF(clientePF1.getCpf());
-			System.out.printf("O CPF%s do" + clientePF1.getNome() + " é válido.\n", verificaCPF1 ? "" : " não");
+			System.out.printf("\nO CPF%s de " + clientePF1.getNome() + " é válido.\n", verificaCPF1 ? "" : " não");
 			if(verificaNome1 && verificaCPF1) {
 				seguradora1.cadastrarCliente(clientePF1);
-				System.out.printf("Cliente " + clientePF1.getNome() + " cadastrado com sucesso!");
+				System.out.printf("\nCliente " + clientePF1.getNome() + " cadastrado com sucesso!");
 			}
 			
 			
 			boolean verificaNome2 = Validacao.validarNome(clientePF2.getNome());
-			System.out.printf("O Nome%s do" + clientePF2.getNome() + " é válido.\n", verificaNome2 ? "" : " não");
+			System.out.printf("\nO Nome%s de " + clientePF2.getNome() + " é válido.\n", verificaNome2 ? "" : " não");
 			boolean verificaCPF2 = Validacao.validarCPF(clientePF2.getCpf());
-			System.out.printf("O CPF%s do" + clientePF2.getNome() + " é válido.\n", verificaCPF2 ? "" : " não");
+			System.out.printf("\nO CPF%s de " + clientePF2.getNome() + " é válido.\n", verificaCPF2 ? "" : " não");
 			if(verificaNome2 && verificaCPF2) {
 				seguradora1.cadastrarCliente(clientePF2);
-				System.out.printf("Cliente " + clientePF2.getNome() + " cadastrado com sucesso!");
+				System.out.printf("\nCliente " + clientePF2.getNome() + " cadastrado com sucesso!");
 			}
 			
 			boolean verificaNome3 = Validacao.validarNome(clientePJ1.getNome());
-			System.out.printf("O Nome%s do" + clientePJ1.getNome() + " é válido.\n", verificaNome3 ? "" : " não");
+			System.out.printf("\nO Nome%s de " + clientePJ1.getNome() + " é válido.\n", verificaNome3 ? "" : " não");
 			boolean verificaCNPJ1 = Validacao.validarCNPJ(clientePJ1.getCnpj());
-			System.out.printf("O CPNJ%s do" + clientePJ1 + " é válido.\n", verificaCNPJ1 ? "" : " não");
+			System.out.printf("\nO CPNJ%s de " + clientePJ1 + " é válido.\n", verificaCNPJ1 ? "" : " não");
 			if(verificaNome3 && verificaCNPJ1) {
 				seguradora1.cadastrarCliente(clientePJ1);
-				System.out.printf("Cliente " + clientePJ1.getNome() + " cadastrado com sucesso!");
+				System.out.printf("\nCliente " + clientePJ1.getNome() + " cadastrado com sucesso!");
 			}
 		
 			boolean verificaNome4 = Validacao.validarNome(clientePJ2.getNome());
-			System.out.printf("O Nome%s do" + clientePJ2.getNome() + " é válido.\n", verificaNome4 ? "" : " não");
+			System.out.printf("\nO Nome%s de " + clientePJ2.getNome() + " é válido.\n", verificaNome4 ? "" : " não");
 			boolean verificaCNPJ2 = Validacao.validarCNPJ(clientePJ2.getCnpj());
-			System.out.printf("O CPNJ%s do" + clientePJ2 + " é válido.\n", verificaCNPJ2 ? "" : " não");
+			System.out.printf("\nO CPNJ%s de " + clientePJ2 + " é válido.\n", verificaCNPJ2 ? "" : " não");
 			if(verificaNome4 && verificaCNPJ2) {
 				seguradora1.cadastrarCliente(clientePJ2);
-				System.out.printf("Cliente " + clientePJ2.getNome() + " cadastrado com sucesso!");
+				System.out.printf("\nCliente " + clientePJ2.getNome() + " cadastrado com sucesso!");
 			}
 			break;
 		case CADASTRAR_VEICULO:
@@ -167,6 +167,7 @@ public class AppMain {
 			clientePF2.addVeiculo(veiculo3);
 			clientePJ1.addVeiculo(veiculo4);
 			clientePJ2.addVeiculo(veiculo5);
+			System.out.printf("Veiculos cadastrados com sucesso!");
 			break;
 		case CADASTRAR_SEGURADORA:
 			System.out.print("Qual a sua razão social?\\n");
