@@ -4,22 +4,30 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Seguradora {
+	private final String cnpj;
 	private String nome;
 	private String phone;
 	private String mail;
 	private String endereco;
-	private ArrayList<Sinistro> listaSinistros;
+	private ArrayList<Seguro> listaSeguros;
 	private ArrayList<Cliente> listaClientes;
+	private Double valorSeguro;
 	
-	public Seguradora(String nome, String phone, String mail, String endereco) {
+	public Seguradora(String cnpj, String nome, String phone, String mail, String endereco) {
+		this.cnpj = cnpj;
 		this.nome = nome;
 		this.phone = phone;
 		this.mail = mail;
 		this.endereco = endereco;
-		this.listaSinistros = new ArrayList<Sinistro>();
+		this.listaSeguros = new ArrayList<Seguro>();
 		this.listaClientes = new ArrayList<Cliente>();
+		this.valorSeguro = 0.0;
 	}
 
+	public String getCnpj() {
+		return cnpj;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -52,12 +60,12 @@ public class Seguradora {
 		this.endereco = endereco;
 	}
 	
-	public ArrayList<Sinistro> getListaSinistros() {
-		return listaSinistros;
+	public ArrayList<Seguro> getListaSeguros() {
+		return listaSeguros;
 	}
 
-	public void setListaSinistros(ArrayList<Sinistro> listaSinistros) {
-		this.listaSinistros = listaSinistros;
+	public void setListaSeguros(ArrayList<Seguro> listaSeguros) {
+		this.listaSeguros = listaSeguros;
 	}
 
 	public ArrayList<Cliente> getListaClientes() {
@@ -75,28 +83,21 @@ public class Seguradora {
 	
 	public Boolean removerCliente(String id) {
 		Iterator <Cliente> iterator = listaClientes.iterator();
-		Iterator <Sinistro> iterator2 = listaSinistros.iterator();
+		Iterator <Seguro> iterator2 = listaSeguros.iterator();
 		while (iterator.hasNext()) {
 			Cliente procurado = iterator.next();
 			if(procurado.getidentificacao().equals(id)) {
 				while(iterator2.hasNext()) {
-					Sinistro procurado2 = iterator2.next();
-					if(procurado2.getCliente().equals(procurado)) {
-						ArrayList <Veiculo> lista = procurado.getListaVeiculos();
-						Iterator <Veiculo> iterator3 = lista.iterator();
-						while (iterator3.hasNext()) {
-							iterator3.remove();
-							iterator3.next();
-						}
-						iterator2.remove();
+					Seguro procurado2 = iterator2.next();
+					iterator2.remove();
 					}
 				}
 				iterator.remove();
 				return true;
 			}
-		}
 		return false;
 	}
+
 	
 	public Cliente searchCliente(String nome) {
 		for(Cliente cliente : listaClientes) {
@@ -119,25 +120,43 @@ public class Seguradora {
 		}
 	}
 		
-	public void listarSinistros() {
-		for(Sinistro sinistro : listaSinistros) {
-				System.out.println(sinistro);	
+	public ArrayList<Seguro> getSegurosPorCliente (Cliente cliente) {
+		ArrayList<Seguro> segurosCliente = new ArrayList<>() ;
+		for(Seguro seguro : listaSeguros) {
+			if (seguro.getCliente().equals(cliente)) {
+				segurosCliente.add(seguro);
+			}
+		}
+		return segurosCliente ;
+	}
+	
+	public ArrayList<Sinistro> getSinistrosPorCliente (Cliente cliente) {
+		ArrayList<Sinistro> sinistrosCliente = new ArrayList<>() ;
+		for(Seguro seguro : listaSeguros) {
+			if (seguro.getCliente().equals(cliente)) {
+				ArrayList<Sinistro> listasinistros = seguro.getListaSinistros();
+				sinistrosCliente = listasinistros;
+				break;
+			}
+		}
+		return sinistrosCliente;
+	}
+	
+	public void listarSeguros() {
+		for(Seguro seguro : listaSeguros) {
+				System.out.println(seguro);	
 		}
 	}
 	
-	public Boolean gerarSinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
-		Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo, cliente);
-		listaSinistros.add(sinistro);
-		return true;
-	}
+	
 		
-	public Boolean visualizarSinistro(String id) {
+	public Boolean visualizarSeguro(String id) {
 		int cont = 0;
 		for(Cliente client : listaClientes) {
 			if (client.getidentificacao().equals(id)) {
-				for(Sinistro sinistro : listaSinistros) {
-					if (sinistro.getCliente().equals(client)) {
-						System.out.println(sinistro);
+				for(Seguro seguro : listaSeguros) {
+					if (seguro.getCliente().equals(client)) {
+						System.out.println(seguro);
 						cont++;
 					}
 				}
@@ -150,24 +169,24 @@ public class Seguradora {
 		}
 	}
 	
-	public Double contarSinistros(Cliente cliente) {
+	public Double contarSeguros(Cliente cliente) {
 		double contador = 0;
-		for(Sinistro sinistro : listaSinistros) {
-			if(sinistro.getCliente().equals(cliente)){
+		for(Seguro seguro : listaSeguros) {
+			if(seguro.getCliente().equals(cliente)){
 				contador++;
 			}
 		}
 		return contador;
 	}
 	
-	public Boolean removerSinistro(String id) {
+	public Boolean removerSeguro(String id) {
 		Iterator <Cliente> iterator = listaClientes.iterator();
-		Iterator <Sinistro> iterator2 = listaSinistros.iterator();
+		Iterator <Seguro> iterator2 = listaSeguros.iterator();
 		while (iterator.hasNext()) {
 			Cliente procurado = iterator.next();
 			if(procurado.getidentificacao().equals(id)) {
 				while(iterator2.hasNext()) {
-					Sinistro procurado2 = iterator2.next();
+					Seguro procurado2 = iterator2.next();
 					if(procurado2.getCliente().equals(procurado)) {
 						iterator2.remove();
 					}
@@ -178,14 +197,37 @@ public class Seguradora {
 		return false;
 	}
 	
+	public double calculaScore(ClientePF cliente) {
+		double score;
+		double quantidadeCarros = contarVeiculos(cliente);
+		score = CalcSeguro.VALOR_BASE.getOperacao() * quantidadeCarros;
+		return score;
+	}
+	
+	public double calculaScore(ClientePF cliente) {
+		double score, fator;
+		double idade = cliente.calculaIdade(cliente.getdataNascimento());
+		if (idade <= 30.0) {
+			fator = CalcSeguro.FATOR_18_30.getOperacao();
+		} else if (idade > 30.0 && idade <= 60.0) {
+			fator = CalcSeguro.FATOR_30_60.getOperacao();
+		} else if (idade > 60.0 && idade <= 90.0) {
+			fator = CalcSeguro.FATOR_60_90.getOperacao();
+		} else {
+			fator = 0;
+		}
+		score = fator;
+		return score;
+	}
+	
 	public Double calcularPrecoSeguroCliente(Cliente cliente) {
-		double qtdSinistros = contarSinistros(cliente);
+		double qtdSeguros = contarSeguros(cliente);
 		String tipoCliente = cliente.getidentificacao();
 		double preco;
 		if(tipoCliente.equals("PF")) {
-			preco = qtdSinistros * cliente.calculaScore(cliente);
+			preco = qtdSeguros * cliente.calculaScore(cliente);
 		} else {
-			preco = qtdSinistros * cliente.calculaScore(cliente);
+			preco = qtdSeguros * cliente.calculaScore(cliente);
 		}
 		
 		//Atualizar valorSeguro do cliente

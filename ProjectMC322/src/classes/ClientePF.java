@@ -1,25 +1,42 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class ClientePF extends Cliente {
-	private Date dataLicenca;
-	private String educacao;
-	private String genero;
-	private String classeEconomica;
 	private final String cpf;
+	private String genero;
+	private String educacao;
 	private Date dataNascimento;
+	private ArrayList<Veiculo> listaVeiculos;
+	private ArrayList<SeguroPF> segurosPF;
 
-	public ClientePF(String nome, String endereco, Date dataLicenca, String educacao, String genero,
-			String classeEconomica, String tipoCliente, String cpf, Date dataNascimento) {
-		super(nome, endereco, tipoCliente);
-		this.dataLicenca = dataLicenca;
+	public ClientePF(String nome, String telefone, String endereco, String email, String cpf, String genero, String educacao, 
+			Date dataNascimento, String tipoCliente) {
+		super(nome, telefone, endereco, email, tipoCliente);
+		this.listaVeiculos = new ArrayList<Veiculo>();
 		this.educacao = educacao;
 		this.genero = genero;
-		this.classeEconomica = classeEconomica;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
+		this.segurosPF = new ArrayList<SeguroPF>();
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public ArrayList<SeguroPF> getSegurosPF() {
+		return segurosPF;
+	}
+
+	public void setSegurosPF(ArrayList<SeguroPF> segurosPF) {
+		this.segurosPF = segurosPF;
 	}
 
 	public String getCpf() {
@@ -32,16 +49,43 @@ public class ClientePF extends Cliente {
 		return dataNascimento;
 	}
 
+	public ArrayList<Veiculo> getListaVeiculos() {
+		return listaVeiculos;
+	}
+	
+	public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
+	}
+
+	public void addVeiculo(Veiculo veiculo) {
+		listaVeiculos.add(veiculo);
+	}
+	
+	public void removeVeiculo(Veiculo veiculo) {
+		listaVeiculos.remove(veiculo);
+	}
+	
+	public Veiculo searchVeiculo(String placa) {
+		for(Veiculo veiculo : listaVeiculos) {
+			if(veiculo.getPlaca().equals(placa)) {
+				return veiculo;
+			}
+		}
+		return null;
+	}
+	
+	public double contarVeiculos(ClientePF cliente) {
+		double contador = 0;
+		for(Veiculo veiculo : listaVeiculos) {
+			if(cliente.listaVeiculos.contains(veiculo)){
+				contador++;
+			}
+		}
+		return contador;
+	}
+	
 	public void setdataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public Date getDataLicenca() {
-		return dataLicenca;
-	}
-
-	public void setDataLicenca(Date dataLicenca) {
-		this.dataLicenca = dataLicenca;
 	}
 
 	public String getEducacao() {
@@ -58,14 +102,6 @@ public class ClientePF extends Cliente {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
-	}
-
-	public String getClasseEconomica() {
-		return classeEconomica;
-	}
-
-	public void setClasseEconomica(String classeEconomica) {
-		this.classeEconomica = classeEconomica;
 	}
 
 	public double calculaIdade(Date dataNascimento) {
@@ -87,23 +123,6 @@ public class ClientePF extends Cliente {
 		return idade;
 	}
 
-
-	public double calculaScore(ClientePF cliente) {
-		double score, fator;
-		double idade = cliente.calculaIdade(cliente.getdataNascimento());
-		if (idade <= 30.0) {
-			fator = CalcSeguro.FATOR_18_30.getOperacao();
-		} else if (idade > 30.0 && idade <= 60.0) {
-			fator = CalcSeguro.FATOR_30_60.getOperacao();
-		} else if (idade > 60.0 && idade <= 90.0) {
-			fator = CalcSeguro.FATOR_60_90.getOperacao();
-		} else {
-			fator = 0;
-		}
-		score = super.calculaScore(cliente) * fator;
-		return score;
-	}
-
 	@Override
 	public String getidentificacao() {
 		return getCpf();
@@ -111,8 +130,7 @@ public class ClientePF extends Cliente {
 
 	public String toString() {
 		return "Cliente com CPF " + cpf + ", nascido em " + dataNascimento + ", refere-se a: " + super.toString()
-				+ ", com nível de educacao " + educacao + ", do genero " + genero + ", da classe econômica "
-				+ classeEconomica + ". \n";
+				+ ", com nível de educacao " + educacao + ", do genero " + genero + ". \n";
 	}
 
 }

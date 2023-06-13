@@ -1,16 +1,17 @@
 package classes;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ClientePJ extends Cliente {
 	private final String cnpj;
 	private Date dataFundacao;
-	private int qtdDeFuncionarios;
+	private ArrayList<Frota> listaFrota;
 		
-	public ClientePJ (String nome, String endereco, String tipoCliente, String cnpj, Date dataFundacao, int qtdDeFuncionarios) {
-		super(nome, endereco, tipoCliente);
+	public ClientePJ (String nome, String telefone, String endereco, String email, String tipoCliente, String cnpj, Date dataFundacao, int qtdDeFuncionarios) {
+		super(nome, telefone, endereco, email, tipoCliente);
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
-		this.qtdDeFuncionarios = qtdDeFuncionarios;
+		this.listaFrota = new ArrayList<Frota>();
 	}
 
 	public Date getDataFundacao() {
@@ -32,14 +33,6 @@ public class ClientePJ extends Cliente {
 		return getCnpj();
 	}
 	
-	public int getQtdDeFuncionarios() {
-		return qtdDeFuncionarios;
-	}
-
-	public void setQtdDeFuncionarios(int qtdDeFuncionarios) {
-		this.qtdDeFuncionarios = qtdDeFuncionarios;
-	}
-
 	public double calculaScore(ClientePJ cliente) {
 		double score;
 		double funcionarios = cliente.getQtdDeFuncionarios();
