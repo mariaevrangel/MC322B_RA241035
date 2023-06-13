@@ -156,8 +156,6 @@ public class Seguradora {
 				System.out.println(seguro);	
 		}
 	}
-	
-	
 		
 	public Boolean visualizarSeguro(String id) {
 		int cont = 0;

@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public abstract class Frota {
+public class Frota {
 	private String code;
 	private ArrayList<Veiculo> listaVeiculos;
 	private ArrayList<SeguroPJ> segurosPJ;

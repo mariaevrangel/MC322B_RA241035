@@ -25,7 +25,7 @@ public enum MenuOperacoes {
 			SubMenu.EXCLUIR_VEICULO,
 			SubMenu.EXCLUIR_VEICULO_FROTA,
 			SubMenu.EXCLUIR_FROTA,
-			SubMenu.EXCLUIR_SINISTRO,
+			SubMenu.EXCLUIR_SEGURO,
 			SubMenu.VOLTAR
 	}),
 	GERAR_SINISTRO ("Gerar Sinistro", new SubMenu[] {SubMenu.VOLTAR}),

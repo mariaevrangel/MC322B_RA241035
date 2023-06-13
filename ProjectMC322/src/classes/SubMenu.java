@@ -18,7 +18,7 @@ public enum SubMenu {
 	EXCLUIR_VEICULO ("Excluir Veiculo"),
 	EXCLUIR_VEICULO_FROTA ("Excluir Veículo de Frota"),
 	EXCLUIR_FROTA ("Excluir Frota"),
-	EXCLUIR_SINISTRO ("Excluir Sinistro"),
+	EXCLUIR_SEGURO ("Excluir Seguro"),
 	VOLTAR ("Voltar");
 	
 	private final String operacao;
