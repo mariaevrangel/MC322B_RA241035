@@ -220,6 +220,13 @@ public class Seguradora {
 		return score;
 	}
 	
+	public double calculaScore(ClientePJ cliente) {
+		double score;
+		double funcionarios = cliente.getQtdDeFuncionarios();
+		score = super.calculaScore(cliente) * (1 + (funcionarios/100));
+		return score;
+	}
+	
 	public Double calcularPrecoSeguroCliente(Cliente cliente) {
 		double qtdSeguros = contarSeguros(cliente);
 		String tipoCliente = cliente.getidentificacao();

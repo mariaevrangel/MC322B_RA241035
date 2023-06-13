@@ -33,15 +33,45 @@ public class ClientePJ extends Cliente {
 		return getCnpj();
 	}
 	
-	public double calculaScore(ClientePJ cliente) {
-		double score;
-		double funcionarios = cliente.getQtdDeFuncionarios();
-		score = super.calculaScore(cliente) * (1 + (funcionarios/100));
-		return score;
+	public ArrayList<Frota> getListaFrota() {
+		return listaFrota;
+	}
+
+	public void setListaFrota(ArrayList<Frota> listaFrota) {
+		this.listaFrota = listaFrota;
+	}
+
+	public Boolean cadastrarFrota(Frota frota) {
+		listaFrota.add(frota);
+		return true;
+	}
+	
+	public void atualizarFrota(Frota frota) {
+		listaFrota.remove(frota);
+	}
+	
+	public Frota searchFrota(String code) {
+		for(Frota frota : listaFrota) {
+			if(frota.getCode().equals(code)) {
+				return frota;
+			}
+		}
+		return null;
+	}
+	
+	public double getVeiculosPorFrota(Frota frotas) {
+		double contador = 0;
+		for(Frota frota : listaFrota) {
+			if(frota.equals(frotas)){
+				contador = frota.getListaVeiculos().size();
+				return contador;
+			}
+		}
+		return contador;
 	}
 	
 	public String toString() {
-		return "Cliente do CNPJ " + cnpj + ", fundado em " + dataFundacao + ", com " + qtdDeFuncionarios + "funcionários; referente ao: " + super.toString() + ". \n";
+		return "Cliente do CNPJ " + cnpj + ", fundado em " + dataFundacao + "; referente ao: " + super.toString() + ". \n";
 	}
 	
 }
