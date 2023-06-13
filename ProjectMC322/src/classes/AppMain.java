@@ -169,6 +169,12 @@ public class AppMain {
 				System.out.printf("\nCliente " + clientePJ2.getNome() + " cadastrado com sucesso!");
 			}
 			break;
+		case CADASTRAR_CONDUTOR:
+			Condutor condutor2 = new Condutor("325.575.678-39", "Julia Rangel", "93465-1323", "Campinas", "juju.mfes@hotmail.com", dateBirth);
+			SeguroPF seguro7 = seguradora1.gerarSeguroPF(clientePF2, dateBirth, dateFundacao, seguradora1, veiculo5);
+			seguro7.autorizarCondutor(condutor2);
+			System.out.printf("Condutor cadastrado com sucesso!");
+			break;
 		case CADASTRAR_VEICULO:
 			clientePF1.addVeiculo(veiculo1);
 			clientePF1.addVeiculo(veiculo2);
@@ -177,6 +183,10 @@ public class AppMain {
 			clientePJ1.atualizarFrota(frota1, veiculo3, "adicionar");
 			clientePJ2.atualizarFrota(frota1, veiculo2, "adicionar");
 			System.out.printf("Veiculos cadastrados com sucesso!");
+			break;
+		case CADASTRAR_FROTA:
+			Frota frota3 = new Frota("002", veiculo3);
+			clientePJ1.cadastrarFrota(frota3);
 			break;
 		case CADASTRAR_SEGURADORA:
 			System.out.print("Qual a sua razão social?\\n");
@@ -217,13 +227,19 @@ public class AppMain {
 				seguradora1.listarClientes("PJ");
 			}
 			break;
+		case LISTAR_CONDUTOR:
+			Condutor condutor3 = new Condutor("325.575.678-39", "Julia Rangel", "93465-1323", "Campinas", "juju.mfes@hotmail.com", dateBirth);
+			SeguroPF seguro8 = seguradora1.gerarSeguroPF(clientePF2, dateBirth, dateFundacao, seguradora1, veiculo5);
+			seguro8.autorizarCondutor(condutor3);
+			seguro8.listarCondutor();
+			break;
 		case LISTAR_SEGURO_SEG:
 			seguradora1.listarSeguros();
 			break;
 		case LISTAR_SINISTRO_CONDUTOR:
 			System.out.print("Qual o CPF/CNPJ do cliente que quer visualizar o(s) sinistro(s)?\n");
-			String id = entrada.nextLine();
-			Boolean existe = seguradora1.visualizarSeguro(id);
+			int id = entrada.nextInt();
+			Boolean existe = condutor1.visualizarSinistro(id);
 			if (existe == false) {
 				System.out.print("Não há sinistros nesse CPF/CNPJ.\n");
 			}
@@ -235,6 +251,17 @@ public class AppMain {
 				if (cliente.getidentificacao().equals(id_car)) {
 					for(Veiculo veiculo : ((ClientePF) cliente).getListaVeiculos()) {
 						System.out.println(veiculo);
+					}
+				}
+			}
+			break;
+		case LISTAR_FROTA_CLIENTEPJ:
+			System.out.print("Qual o CPF/CNPJ do cliente que quer visualizar o(s) carro(s)?\n");
+			String id_frota = entrada.nextLine();
+			for (Cliente cliente : seguradora1.getListaClientes()) {
+				if (cliente.getidentificacao().equals(id_frota)) {
+					for(Frota frota : ((ClientePJ) cliente).getListaFrota()) {
+						System.out.println(frota);
 					}
 				}
 			}
@@ -256,6 +283,19 @@ public class AppMain {
 				System.out.print("Cliente não encontrado.\n");
 			}
 			break;
+		case EXCLUIR_CONDUTOR:
+			System.out.print("Qual o CPF/CNPJ que busca remover?\n");
+			String identificacao2 = entrada.nextLine();
+			Condutor condutor4 = new Condutor("325.575.678-39", "Julia Rangel", "93465-1323", "Campinas", "juju.mfes@hotmail.com", dateBirth);
+			SeguroPF seguro9 = seguradora1.gerarSeguroPF(clientePF2, dateBirth, dateFundacao, seguradora1, veiculo5);
+			seguro9.autorizarCondutor(condutor4);
+			Boolean remove2 = seguro9.desautorizarCondutor(identificacao2);
+			if (remove2 == true) {
+				System.out.print("Condutor removido.\n");
+			} else {
+				System.out.print("Condutor não encontrado.\n");
+			}
+			break;
 		case EXCLUIR_VEICULO:
 			System.out.print("Qual o seu CPF/CNPJ?\n");
 			String id_dono = entrada.nextLine();
@@ -272,10 +312,42 @@ public class AppMain {
 				}
 			}
 			break;
+		case EXCLUIR_VEICULO_FROTA:
+			System.out.print("Qual o seu CPF/CNPJ?\n");
+			String id_dono2 = entrada.nextLine();
+			System.out.print("Qual o code da frota que deseja remover?\n");
+			String code = entrada.nextLine();
+			for (Cliente cliente : seguradora1.getListaClientes()) {
+				if (cliente.getidentificacao().equals(id_dono2)) {
+					for(Frota frota : ((ClientePJ) cliente).getListaFrota()) {
+						if(frota.getCode().equals(code)){
+							((ClientePJ) cliente).atualizarFrota(frota, veiculo2, "remover");
+							break;
+						}
+					}
+				}
+			}
+			break;
+		case EXCLUIR_FROTA:
+			System.out.print("Qual o seu CPF/CNPJ?\n");
+			String id_dono3 = entrada.nextLine();
+			System.out.print("Qual o code da frota que deseja remover?\n");
+			String code2 = entrada.nextLine();
+			for (Cliente cliente : seguradora1.getListaClientes()) {
+				if (cliente.getidentificacao().equals(id_dono3)) {
+					for(Frota frota : ((ClientePJ) cliente).getListaFrota()) {
+						if(frota.getCode().equals(code2)){
+							((ClientePJ) cliente).atualizarFrota(frota, veiculo2, "excluir");
+							break;
+						}
+					}
+				}
+			}
+			break;
 		case EXCLUIR_SEGURO:
 			System.out.print("Qual o CPF/CNPJ registrado no sinistro que deseja remover?\n");
-			String identificacao2 = entrada.nextLine();
-			Boolean remover = seguradora1.removerSeguro(identificacao2);
+			String identificacao3 = entrada.nextLine();
+			Boolean remover = seguradora1.removerSeguro(identificacao3);
 			if (remover == true) {
 				System.out.print("Sinistro removido.\n");
 			} else {

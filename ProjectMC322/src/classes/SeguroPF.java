@@ -33,9 +33,16 @@ public class SeguroPF extends Seguro {
 		return condutor;
 	}
 	
-	public Condutor desautorizarCondutor(Condutor condutor) {
+	public boolean desautorizarCondutor(String cpf) {
+		Condutor condutor = null;
+		for (Condutor condutor2 : getListaCondutores()) {
+			if(condutor2.getCpf().equals(cpf)) {
+				condutor = condutor2;
+				break;
+			}
+		}
 		getListaCondutores().remove(condutor);
-		return condutor;
+		return true;
 	}
 	
 	public double calculaValor(ClientePF cliente) {

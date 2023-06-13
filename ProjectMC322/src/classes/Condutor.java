@@ -91,6 +91,22 @@ public class Condutor {
 		return false;
 	}
 	
+	public Boolean visualizarSinistro(int id) {
+		int cont = 0;
+		for(Sinistro sinistro : listaSinistros) {
+			int idAtual = sinistro.getId();
+			if (idAtual == id) {
+				System.out.println(sinistro);
+				cont++;
+			}
+		}
+		if (cont > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Condutor [cpf=" + cpf + ", nome=" + nome + ", telefone=" + telefone + ", endereco=" + endereco

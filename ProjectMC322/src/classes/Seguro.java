@@ -105,6 +105,12 @@ public abstract class Seguro {
 		return sinistro;
 	}
 	
+	public void listarCondutor() {
+		for(Condutor condutor : listaCondutores) {
+				System.out.println(condutor);	
+		}
+	}
+	
 	public Condutor autorizarCondutor(Condutor condutor) {
 		listaCondutores.add(condutor);
 		return condutor;
