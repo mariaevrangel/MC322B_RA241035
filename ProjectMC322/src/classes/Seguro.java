@@ -12,7 +12,7 @@ public abstract class Seguro {
 	private Cliente cliente;
 	private ArrayList<Sinistro> listaSinistros;
 	private ArrayList<Condutor> listaCondutores;
-	private int valorMensal;
+	private double valorMensal = 0.0;
 	
 	public Seguro(Cliente cliente, Date dataInicio, Date dataFim, Seguradora seguradora) {
 		this.id = idGenerator();
@@ -80,12 +80,12 @@ public abstract class Seguro {
 		this.listaCondutores = listaCondutores;
 	}
 
-	public int getValorMensal() {
+	public double getValorMensal() {
 		return valorMensal;
 	}
 
-	public void setValorMensal(int valorMensal) {
-		this.valorMensal = valorMensal;
+	public void setValorMensal(double fator) {
+		this.valorMensal = fator;
 	}
 
 	public int getId() {
@@ -100,6 +100,25 @@ public abstract class Seguro {
 		return number;
 	}
 
+	public Sinistro gerarSinistro(Date data, String endereco, Condutor condutor, Seguro seguro) {
+		Sinistro sinistro = new Sinistro(data, endereco, condutor, seguro);
+		return sinistro;
+	}
+	
+	public Condutor autorizarCondutor(Condutor condutor) {
+		listaCondutores.add(condutor);
+		return condutor;
+	}
+	
+	public Condutor desautorizarCondutor(Condutor condutor) {
+		listaCondutores.remove(condutor);
+		return condutor;
+	}
+	
+	public double calculaValor(){
+		return valorMensal;
+	}
+	
 	@Override
 	public String toString() {
 		return "Seguro [id=" + id + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + ", seguradora=" + seguradora

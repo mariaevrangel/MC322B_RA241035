@@ -53,11 +53,10 @@ public class AppMain {
 		//Instanciar
 		Scanner entrada = new Scanner(System.in);
 		SimpleDateFormat formatadata = new SimpleDateFormat("dd/MM/yyyy");
-		Date dateLicenca = formatadata.parse("11/03/2015");
 		Date dateBirth = formatadata.parse("17/06/2023");
 		Date dateFundacao = formatadata.parse("04/06/2023");
-		ClientePF clientePF1 = new ClientePF("Maria Rangel", "Campinas", dateLicenca, "Ensino Médio", "Feminino", "B", "PF", "385.575.678-39", dateBirth);
-		ClientePF clientePF2 = new ClientePF("George Cooper", "São Paulo", dateLicenca, "Mestrado", "Masculino", "B", "PF", "124.643.231-68", dateBirth);
+		ClientePF clientePF1 = new ClientePF("Maria Rangel", "Campinas", "Ensino Médio", "Feminino", "PF", "385.575.678-39", dateBirth);
+		ClientePF clientePF2 = new ClientePF("George Cooper", "São Paulo", "Mestrado", "Masculino", "B", "PF", "124.643.231-68", dateBirth);
 		ClientePJ clientePJ1 = new ClientePJ ("Google Inc", "California", "PJ", "06.990.590/0001-23", dateFundacao, 4);
 		ClientePJ clientePJ2 = new ClientePJ ("Amazon SA", "Boston", "PJ", "65.991.567/0001-59", dateFundacao, 23);
 		Veiculo veiculo1 = new Veiculo("ABC1023", "Mercedes", "GLA", 2017);

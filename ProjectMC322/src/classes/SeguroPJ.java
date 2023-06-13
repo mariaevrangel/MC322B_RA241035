@@ -6,10 +6,10 @@ public class SeguroPJ extends Seguro {
 	private Frota frota;
 	private ClientePJ clientePJ;
 	
-	public SeguroPJ(Date dataInicio, Date dataFim, Seguradora seguradora, Frota frota, ClientePJ clientePJ) {
-		super(dataInicio, dataFim, seguradora);
+	public SeguroPJ(ClientePJ cliente, Date dataInicio, Date dataFim, Seguradora seguradora, Frota frota) {
+		super(cliente, dataInicio, dataFim, seguradora);
 		this.frota = frota;
-		this.clientePJ = clientePJ;
+		this.clientePJ = cliente;
 	}
 
 	public Frota getFrota() {
@@ -28,6 +28,35 @@ public class SeguroPJ extends Seguro {
 		this.clientePJ = clientePJ;
 	}
 
+	public Condutor autorizarCondutor(Condutor condutor) {
+		getListaCondutores().add(condutor);
+		return condutor;
+	}
+	
+	public Condutor desautorizarCondutor(Condutor condutor) {
+		getListaCondutores().remove(condutor);
+		return condutor;
+	}
+	
+	public double calculaValor(ClientePJ cliente) {
+		double fator;
+		double qtdFuncionarios = cliente.getQtdDeFuncionarios();
+		double anosFundacao = cliente.calculaAnos(cliente.getDataFundacao());
+		double qtdSinistrosCliente = cliente.contarSinistros(cliente);
+		double qtdSinistrosCondutor = qtdSinistrosCliente;
+		int range = cliente.getListaFrota().size();
+		double qtdVeiculos = 0.0;
+		for (int i = 0; i <= range; i++) {
+			for(Frota frota : cliente.getListaFrota()) {
+				qtdVeiculos += cliente.getVeiculosPorFrota(frota);
+			}
+		}
+		fator = 100 * (10 + (qtdFuncionarios/10)) * (1 + 1/(qtdVeiculos + 2)) * (1 + 1/(anosFundacao + 2)) * (2 + (qtdSinistrosCliente/10)) * (5 + qtdSinistrosCondutor /10);
+		setValorMensal(fator);
+		double valorMensal = fator;
+		return valorMensal;
+	}
+	
 	@Override
 	public String toString() {
 		return "SeguroPJ da " + frota + ", do cliente " + clientePJ + ". \n";

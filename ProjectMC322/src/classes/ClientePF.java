@@ -123,6 +123,16 @@ public class ClientePF extends Cliente {
 		return idade;
 	}
 
+	public Double contarSinistros(Cliente cliente) {
+		double contador = 0;
+		for(Seguro seguro : segurosPF) {
+			if(seguro.getCliente().equals(cliente)){
+				contador++;
+			}
+		}
+		return contador;
+	}
+	
 	@Override
 	public String getidentificacao() {
 		return getCpf();

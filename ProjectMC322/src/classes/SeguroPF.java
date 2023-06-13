@@ -6,10 +6,10 @@ public class SeguroPF extends Seguro {
 	private Veiculo veiculo;
 	private ClientePF clientePF;
 	
-	public SeguroPF(Date dataInicio, Date dataFim, Seguradora seguradora, Veiculo veiculo, ClientePF clientePF) {
-		super(dataInicio, dataFim, seguradora);
+	public SeguroPF(ClientePF cliente, Date dataInicio, Date dataFim, Seguradora seguradora, Veiculo veiculo) {
+		super(cliente, dataInicio, dataFim, seguradora);
 		this.veiculo = veiculo;
-		this.clientePF = clientePF;
+		this.clientePF = cliente;
 	}
 
 	public Veiculo getVeiculo() {
@@ -26,6 +26,36 @@ public class SeguroPF extends Seguro {
 
 	public void setClientePF(ClientePF clientePF) {
 		this.clientePF = clientePF;
+	}
+	
+	public Condutor autorizarCondutor(Condutor condutor) {
+		getListaCondutores().add(condutor);
+		return condutor;
+	}
+	
+	public Condutor desautorizarCondutor(Condutor condutor) {
+		getListaCondutores().remove(condutor);
+		return condutor;
+	}
+	
+	public double calculaValor(ClientePF cliente) {
+		double fator;
+		double quantidadeCarros = cliente.contarVeiculos(cliente);
+		double quantidadeSinistrosCliente = cliente.contarSinistros(cliente);
+		double quantidadeSinistrosCondutor = quantidadeSinistrosCliente;
+		double idade = cliente.calculaIdade(cliente.getdataNascimento());
+		if (idade <= 30.0) {
+			fator = CalcSeguro.FATOR_18_30.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+		} else if (idade > 30.0 && idade <= 60.0) {
+			fator = CalcSeguro.FATOR_30_60.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+		} else if (idade > 60.0 && idade <= 90.0) {
+			fator = CalcSeguro.FATOR_60_90.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+		} else {
+			fator = 0;
+		}
+		setValorMensal(fator);
+		double valorMensal = fator;
+		return valorMensal;
 	}
 
 	@Override

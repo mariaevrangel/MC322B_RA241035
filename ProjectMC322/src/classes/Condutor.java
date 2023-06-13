@@ -76,8 +76,7 @@ public class Condutor {
 
 	//sem setCpf() por ser do tipo final
 	
-	public Boolean adicionarSinistro(Date data, String endereco, Condutor condutor, Seguro seguro) {
-		Sinistro sinistro = new Sinistro(data, endereco, condutor, seguro);
+	public Boolean adicionarSinistro(Sinistro sinistro) {
 		listaSinistros.add(sinistro);
 		return true;
 	}
