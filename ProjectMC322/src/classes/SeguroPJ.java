@@ -51,7 +51,7 @@ public class SeguroPJ extends Seguro {
 				qtdVeiculos += cliente.getVeiculosPorFrota(frota);
 			}
 		}
-		fator = 100 * (10 + (qtdFuncionarios/10)) * (1 + 1/(qtdVeiculos + 2)) * (1 + 1/(anosFundacao + 2)) * (2 + (qtdSinistrosCliente/10)) * (5 + qtdSinistrosCondutor /10);
+		fator = CalcSeguro.VALOR_BASE.getOperacao() * (10 + (qtdFuncionarios/10)) * (1 + 1/(qtdVeiculos + 2)) * (1 + 1/(anosFundacao + 2)) * (2 + (qtdSinistrosCliente/10)) * (5 + qtdSinistrosCondutor /10);
 		setValorMensal(fator);
 		double valorMensal = fator;
 		return valorMensal;

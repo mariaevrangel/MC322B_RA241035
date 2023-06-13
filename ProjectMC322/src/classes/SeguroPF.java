@@ -45,11 +45,11 @@ public class SeguroPF extends Seguro {
 		double quantidadeSinistrosCondutor = quantidadeSinistrosCliente;
 		double idade = cliente.calculaIdade(cliente.getdataNascimento());
 		if (idade <= 30.0) {
-			fator = CalcSeguro.FATOR_18_30.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+			fator = CalcSeguro.VALOR_BASE.getOperacao() * CalcSeguro.FATOR_18_30.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
 		} else if (idade > 30.0 && idade <= 60.0) {
-			fator = CalcSeguro.FATOR_30_60.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+			fator = CalcSeguro.VALOR_BASE.getOperacao() * CalcSeguro.FATOR_30_60.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
 		} else if (idade > 60.0 && idade <= 90.0) {
-			fator = CalcSeguro.FATOR_60_90.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
+			fator = CalcSeguro.VALOR_BASE.getOperacao() * CalcSeguro.FATOR_60_90.getOperacao() * (1 + 1/(quantidadeCarros + 2)) * (2 + (quantidadeSinistrosCliente/10)) *(5 + (quantidadeSinistrosCondutor/10));
 		} else {
 			fator = 0;
 		}

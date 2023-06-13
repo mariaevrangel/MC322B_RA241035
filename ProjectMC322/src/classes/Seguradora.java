@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 public class Seguradora {
@@ -11,7 +12,7 @@ public class Seguradora {
 	private String endereco;
 	private ArrayList<Seguro> listaSeguros;
 	private ArrayList<Cliente> listaClientes;
-	private Double valorSeguro;
+	private ArrayList<Double> listaValorSeguros;
 	
 	public Seguradora(String cnpj, String nome, String phone, String mail, String endereco) {
 		this.cnpj = cnpj;
@@ -21,7 +22,7 @@ public class Seguradora {
 		this.endereco = endereco;
 		this.listaSeguros = new ArrayList<Seguro>();
 		this.listaClientes = new ArrayList<Cliente>();
-		this.valorSeguro = 0.0;
+		this.listaValorSeguros = new ArrayList<>();
 	}
 
 	public String getCnpj() {
@@ -76,6 +77,14 @@ public class Seguradora {
 		this.listaClientes = listaClientes;
 	}
 	
+	public ArrayList<Double> getListaValorSeguros() {
+		return listaValorSeguros;
+	}
+
+	public void setListaValorSeguros(ArrayList<Double> listaValorSeguros) {
+		this.listaValorSeguros = listaValorSeguros;
+	}
+
 	public Boolean cadastrarCliente(Cliente cliente) {
 		listaClientes.add(cliente);
 		return true;
@@ -197,72 +206,54 @@ public class Seguradora {
 		return false;
 	}
 	
-	public double calculaScore(ClientePF cliente) {
-		double score;
-		double quantidadeCarros = contarVeiculos(cliente);
-		score = CalcSeguro.VALOR_BASE.getOperacao() * quantidadeCarros;
-		return score;
+	public SeguroPF gerarSeguroPF(ClientePF cliente, Date dataInicio, Date dataFim, Seguradora seguradora, Veiculo veiculo) {
+		SeguroPF seguro = new SeguroPF(cliente, dataInicio, dataFim, seguradora, veiculo);
+		return seguro;
 	}
 	
-	public double calculaScore(ClientePF cliente) {
-		double score, fator;
-		double idade = cliente.calculaIdade(cliente.getdataNascimento());
-		if (idade <= 30.0) {
-			fator = CalcSeguro.FATOR_18_30.getOperacao();
-		} else if (idade > 30.0 && idade <= 60.0) {
-			fator = CalcSeguro.FATOR_30_60.getOperacao();
-		} else if (idade > 60.0 && idade <= 90.0) {
-			fator = CalcSeguro.FATOR_60_90.getOperacao();
-		} else {
-			fator = 0;
-		}
-		score = fator;
-		return score;
+	public SeguroPJ gerarSeguroPJ(ClientePJ cliente, Date dataInicio, Date dataFim, Seguradora seguradora, Frota frota) {
+		SeguroPJ seguro = new SeguroPJ(cliente, dataInicio, dataFim, seguradora, frota);
+		return seguro;
 	}
 	
-	public double calculaScore(ClientePJ cliente) {
-		double score;
-		double funcionarios = cliente.getQtdDeFuncionarios();
-		score = super.calculaScore(cliente) * (1 + (funcionarios/100));
-		return score;
-	}
-	
-	public Double calcularPrecoSeguroCliente(Cliente cliente) {
+	public Double calcularPrecoSeguroCliente(Cliente cliente, Seguro seguro) {
 		double qtdSeguros = contarSeguros(cliente);
 		String tipoCliente = cliente.getidentificacao();
 		double preco;
 		if(tipoCliente.equals("PF")) {
-			preco = qtdSeguros * cliente.calculaScore(cliente);
+			preco = qtdSeguros * seguro.calculaValor();
 		} else {
-			preco = qtdSeguros * cliente.calculaScore(cliente);
+			preco = qtdSeguros * seguro.calculaValor();
 		}
 		
 		//Atualizar valorSeguro do cliente
-		cliente.setValorSeguro(preco * (cliente.calculaScore(cliente)));
-		
-		return preco;
+		double valorSeguro = preco * (seguro.calculaValor());
+		return valorSeguro;
 	}
 	
-	public Double calcularReceita(Seguradora seguradora) {
+	public Double calcularReceita(Seguradora seguradora, Seguro seg) {
 		double receita = 0.0;
 		double numero = 0.0;
 		for (Cliente cliente : seguradora.listaClientes) {
-			numero = calcularPrecoSeguroCliente(cliente);
+			numero = calcularPrecoSeguroCliente(cliente, seg);
+			listaValorSeguros.add(numero);
 			receita += numero;
 		}
 		return receita;
 	}
 	
-	public void transferencia (Cliente cliente1, Cliente cliente2) {
-		System.out.printf("O valor do seguro do " + cliente1.getNome() + ", antes da transferência era" + cliente1.getValorSeguro());
-		System.out.printf("O valor do seguro do " + cliente2.getNome() + ", antes da transferência era" + cliente2.getValorSeguro());
+	public void transferencia (ClientePF cliente1, Seguro seg1, ClientePF cliente2, Seguro seg2) {
+		double valorSeguro1 = calcularPrecoSeguroCliente(cliente1, seg1);
+		double valorSeguro2 = calcularPrecoSeguroCliente(cliente2, seg2);
+		System.out.printf("O valor do seguro do " + cliente1.getNome() + ", antes da transferência era" + valorSeguro1);
+		System.out.printf("O valor do seguro do " + cliente2.getNome() + ", antes da transferência era" + valorSeguro2);
 		for(Veiculo veiculo : cliente1.getListaVeiculos()) {
 			cliente2.addVeiculo(veiculo);
 			cliente1.removeVeiculo(veiculo);
 		}
 		System.out.println("Transferência de Seguro realizada com sucesso!");
-		double preco1 = calcularPrecoSeguroCliente(cliente1);
-		double preco2 = calcularPrecoSeguroCliente(cliente2);
+		double preco1 = calcularPrecoSeguroCliente(cliente1, seg1);
+		double preco2 = calcularPrecoSeguroCliente(cliente2, seg2);
 		System.out.printf("O valor do seguro do " + cliente1.getNome() + ", depois da transferência é" + preco1);
 		System.out.printf("O valor do seguro do " + cliente2.getNome() + ", depois da transferência é" + preco2);
 		
